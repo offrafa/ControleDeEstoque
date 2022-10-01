@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ControleDeEstoque.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,11 +9,19 @@ namespace ControleDeEstoque.Controllers
 {
     public class CadastroController : Controller
     {
+        private static List<GrupoProdutoModel> _ListaGrupoDeProduto = new List<GrupoProdutoModel>()
+        {
+            new GrupoProdutoModel() {Id = 1, Nome = "Livros", Ativo = true},
+            new GrupoProdutoModel() {Id = 2, Nome = "Mouse",  Ativo = true},
+            new GrupoProdutoModel() {Id = 3, Nome = "Monitores", Ativo = false},
+        };
+
+
         // GET: Cadastro
         [Authorize]
         public ActionResult GrupoPedido()
         {
-            return View();
+            return View(_ListaGrupoDeProduto);
         }
 
         [Authorize]
