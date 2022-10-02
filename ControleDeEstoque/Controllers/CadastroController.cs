@@ -33,6 +33,48 @@ namespace ControleDeEstoque.Controllers
         }
 
 
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ExcluirGrupoProduto(int id)
+        {
+            var Ret = false;
+            var RegistroDB = _ListaGrupoDeProduto.Find(x => x.Id == id);
+            if(RegistroDB != null)
+            {
+                _ListaGrupoDeProduto.Remove(RegistroDB);
+                Ret = true;
+            }
+
+            return Json(Ret);
+        }
+
+
+
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult SalvarGrupoProduto(GrupoProdutoModel model)
+        {
+            var RegistroDB = _ListaGrupoDeProduto.Find(x =>x.Id == model.Id);
+            if( RegistroDB == null)
+            {
+                RegistroDB = model;
+                RegistroDB.Id = _ListaGrupoDeProduto.Max(x => x.Id) + 1;
+
+                _ListaGrupoDeProduto.Add(RegistroDB);
+            }
+            else
+            {
+                RegistroDB.Nome = model.Nome;
+                RegistroDB.Ativo = model.Ativo;
+            }
+            return Json(RegistroDB);
+        }
+
+
+
+
         [Authorize]
         public ActionResult MarcaProduto()
         {
