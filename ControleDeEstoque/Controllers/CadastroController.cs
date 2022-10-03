@@ -38,17 +38,17 @@ namespace ControleDeEstoque.Controllers
         [Authorize]
         public ActionResult ExcluirGrupoProduto(int id)
         {
-            var Ret = false;
-            var RegistroDB = _ListaGrupoDeProduto.Find(x => x.Id == id);
-            if(RegistroDB != null)
+            var ret = false;
+
+            var registroBD = _ListaGrupoDeProduto.Find(x => x.Id == id);
+            if (registroBD != null)
             {
-                _ListaGrupoDeProduto.Remove(RegistroDB);
-                Ret = true;
+                _ListaGrupoDeProduto.Remove(registroBD);
+                ret = true;
             }
 
-            return Json(Ret);
+            return Json(ret);
         }
-
 
 
 
@@ -82,6 +82,8 @@ namespace ControleDeEstoque.Controllers
                         registroBD.Nome = model.Nome;
                         registroBD.Ativo = model.Ativo;
                     }
+                    
+                    idSalvo = registroBD.Id.ToString();
                 }
                 catch (Exception ex)
                 {
