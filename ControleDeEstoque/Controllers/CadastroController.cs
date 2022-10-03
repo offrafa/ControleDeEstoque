@@ -56,22 +56,41 @@ namespace ControleDeEstoque.Controllers
         [Authorize]
         public ActionResult SalvarGrupoProduto(GrupoProdutoModel model)
         {
-            var RegistroDB = _ListaGrupoDeProduto.Find(x =>x.Id == model.Id);
-            if( RegistroDB == null)
-            {
-                RegistroDB = model;
-                RegistroDB.Id = _ListaGrupoDeProduto.Max(x => x.Id) + 1;
+            var resultado = "OK";
+            var mensagens = new List<string>();
+            var idSalvo = string.Empty;
 
-                _ListaGrupoDeProduto.Add(RegistroDB);
+            if (!ModelState.IsValid)
+            {
+                resultado = "AVISO";
+                mensagens = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).ToList();
             }
             else
             {
-                RegistroDB.Nome = model.Nome;
-                RegistroDB.Ativo = model.Ativo;
-            }
-            return Json(RegistroDB);
-        }
+                try
+                {
+                    var registroBD = _ListaGrupoDeProduto.Find(x => x.Id == model.Id);
 
+                    if (registroBD == null)
+                    {
+                        registroBD = model;
+                        registroBD.Id = _ListaGrupoDeProduto.Max(x => x.Id) + 1;
+                        _ListaGrupoDeProduto.Add(registroBD);
+                    }
+                    else
+                    {
+                        registroBD.Nome = model.Nome;
+                        registroBD.Ativo = model.Ativo;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    resultado = "ERRO";
+                }
+            }
+
+            return Json(new { Resultado = resultado, Mensagens = mensagens, IdSalvo = idSalvo });
+        }
 
 
 
