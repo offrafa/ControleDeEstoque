@@ -15,3 +15,7 @@
 ![image](https://user-images.githubusercontent.com/91328590/193431055-19b3d348-1b26-49e5-a43a-7431dce31a95.png)
 ![image](https://user-images.githubusercontent.com/91328590/193431066-1680f217-7ae8-4360-a53b-83102878a638.png)
 
+
+## Validação para não salvar NULL
+
+![image](https://user-images.githubusercontent.com/91328590/193705122-64ed0416-d76e-47c1-97fa-51613a8c38ab.png)
